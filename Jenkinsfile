@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        IMAGE_NAME = "YOUR_DOCKERHUB_USERNAME/hello-world-demo:${BUILD_NUMBER}"
+        IMAGE_NAME = "adi144/hello-world-demo:${BUILD_NUMBER}"
     }
 
     stages {
