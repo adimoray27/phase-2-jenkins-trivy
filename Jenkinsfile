@@ -34,6 +34,15 @@ pipeline {
             }
         }
 
+        stage('Trivy Scan') {
+            when {
+                expression { params.ENABLE_TRIVY == true }
+            }
+            steps {
+                sh 'trivy image --severity HIGH,CRITICAL --exit-code 1 --no-progress $IMAGE_NAME'
+            }
+        }
+
         stage('Docker Hub Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'ffef7eca-3978-4240-9140-9a04666089bd', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
