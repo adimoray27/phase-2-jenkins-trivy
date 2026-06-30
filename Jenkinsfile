@@ -56,5 +56,15 @@ pipeline {
                 sh 'docker push $IMAGE_NAME'
             }
         }
+
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                    docker pull $IMAGE_NAME
+                    docker rm -f hello-app || true
+                    docker run -d --name hello-app -p 8085:80 $IMAGE_NAME
+                '''
+            }
+        }
     }
 }
